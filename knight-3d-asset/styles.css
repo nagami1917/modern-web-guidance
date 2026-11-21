@@ -1,0 +1,936 @@
+@layer reset, base, theme, layout, components, utilities;
+
+/* ======================= 1. RESET & BASE ======================= */
+@layer reset {
+  /* Targeted element resets (no global * reset per modern-web-guidance `css` guide) */
+  html {
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  p,
+  figure,
+  fieldset,
+  ul,
+  ol,
+  table {
+    margin: 0;
+  }
+
+  fieldset {
+    border: 0;
+    padding: 0;
+    min-inline-size: 0;
+  }
+
+  canvas,
+  img,
+  svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  button,
+  input {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+/* ======================= 2. THEME & DESIGN TOKENS ======================= */
+@layer theme {
+  :root {
+    /* Raw light & dark palette tokens (for fallback + light-dark()) */
+    --bg-canvas-light: oklch(97% 0.008 255);
+    --bg-canvas-dark: oklch(15.5% 0.018 260);
+
+    --bg-surface-light: oklch(100% 0 0);
+    --bg-surface-dark: oklch(20.5% 0.022 260);
+
+    --bg-subtle-light: oklch(93.5% 0.014 255);
+    --bg-subtle-dark: oklch(25.5% 0.025 260);
+
+    --text-primary-light: oklch(20% 0.025 260);
+    --text-primary-dark: oklch(95% 0.01 255);
+
+    --text-muted-light: oklch(42% 0.025 260);
+    --text-muted-dark: oklch(75% 0.018 255);
+
+    --border-ui-light: oklch(80% 0.02 255);
+    --border-ui-dark: oklch(36% 0.028 260);
+
+    /* Brand royal blue & gilded gold (> 4.5:1 text contrast & > 3:1 control contrast) */
+    --brand-light: oklch(44% 0.19 262);
+    --brand-dark: oklch(72% 0.145 255);
+
+    --brand-on-light: oklch(99% 0 0);
+    --brand-on-dark: oklch(16% 0.025 260);
+
+    --gold-accent-light: oklch(52% 0.14 78);
+    --gold-accent-dark: oklch(80% 0.145 82);
+
+    --scroll-track-light: oklch(92% 0.01 255);
+    --scroll-track-dark: oklch(19% 0.018 260);
+    --scroll-thumb-light: oklch(52% 0.03 255);
+    --scroll-thumb-dark: oklch(58% 0.03 255);
+
+    /* Fallback defaults before light-dark() */
+    --bg-canvas: var(--bg-canvas-light);
+    --bg-surface: var(--bg-surface-light);
+    --bg-subtle: var(--bg-subtle-light);
+    --text-primary: var(--text-primary-light);
+    --text-muted: var(--text-muted-light);
+    --border-ui: var(--border-ui-light);
+    --brand: var(--brand-light);
+    --brand-on: var(--brand-on-light);
+    --gold-accent: var(--gold-accent-light);
+    --scrollbar-track: var(--scroll-track-light);
+    --scrollbar-thumb: var(--scroll-thumb-light);
+
+    @media (prefers-color-scheme: dark) {
+      --bg-canvas: var(--bg-canvas-dark);
+      --bg-surface: var(--bg-surface-dark);
+      --bg-subtle: var(--bg-subtle-dark);
+      --text-primary: var(--text-primary-dark);
+      --text-muted: var(--text-muted-dark);
+      --border-ui: var(--border-ui-dark);
+      --brand: var(--brand-dark);
+      --brand-on: var(--brand-on-dark);
+      --gold-accent: var(--gold-accent-dark);
+      --scrollbar-track: var(--scroll-track-dark);
+      --scrollbar-thumb: var(--scroll-thumb-dark);
+    }
+
+    @supports (color: light-dark(white, black)) {
+      --bg-canvas: light-dark(var(--bg-canvas-light), var(--bg-canvas-dark));
+      --bg-surface: light-dark(var(--bg-surface-light), var(--bg-surface-dark));
+      --bg-subtle: light-dark(var(--bg-subtle-light), var(--bg-subtle-dark));
+      --text-primary: light-dark(var(--text-primary-light), var(--text-primary-dark));
+      --text-muted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+      --border-ui: light-dark(var(--border-ui-light), var(--border-ui-dark));
+      --brand: light-dark(var(--brand-light), var(--brand-dark));
+      --brand-on: light-dark(var(--brand-on-light), var(--brand-on-dark));
+      --gold-accent: light-dark(var(--gold-accent-light), var(--gold-accent-dark));
+      --scrollbar-track: light-dark(var(--scroll-track-light), var(--scroll-track-dark));
+      --scrollbar-thumb: light-dark(var(--scroll-thumb-light), var(--scroll-thumb-dark));
+    }
+
+    /* Forced Colors Mode system color tokens */
+    @media (forced-colors: active) {
+      --bg-canvas: Canvas;
+      --bg-surface: Canvas;
+      --bg-subtle: Canvas;
+      --text-primary: CanvasText;
+      --text-muted: GrayText;
+      --border-ui: ButtonBorder;
+      --brand: Highlight;
+      --brand-on: HighlightText;
+    }
+
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    /* MANDATORY viewport-wide color-scheme + UI theming on :root */
+    color-scheme: light dark;
+    accent-color: var(--brand);
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
+  /* WebKit scrollbar fallback inside @supports not (scrollbar-color: auto) */
+  @supports not (scrollbar-color: auto) {
+    :root::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    :root::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+    }
+
+    :root::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+    }
+  }
+}
+
+/* ======================= 3. BASE TYPOGRAPHY ======================= */
+@layer base {
+  body {
+    min-block-size: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    text-align: start;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.22;
+    text-wrap: balance;
+  }
+
+  h1 {
+    /* Max <= 2.5x min per WCAG 1.4.4 Resize Text guidance */
+    font-size: clamp(1.35rem, 1.05rem + 1.4vw, 2.15rem);
+  }
+
+  h2 {
+    font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
+  }
+
+  p {
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding-inline: 0.35em;
+    padding-block: 0.1em;
+    border-radius: 0.3rem;
+    background-color: var(--bg-subtle);
+  }
+
+  :where(a:any-link, button, input, summary):focus-visible {
+    outline: 3px solid var(--brand);
+    outline-offset: 3px;
+  }
+}
+
+/* ======================= 4. LAYOUT ======================= */
+@layer layout {
+  .shell {
+    inline-size: min(100% - 2rem, 86rem);
+    margin-inline: auto;
+  }
+
+  .site-header {
+    background-color: var(--bg-surface);
+    border-block-end: 1px solid var(--border-ui);
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 10;
+  }
+
+  .header-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: safe center;
+    justify-content: space-between;
+    gap: 0.75rem 1.25rem;
+    padding-block: 0.85rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: safe center;
+    gap: 0.75rem;
+  }
+
+  .brand-logo {
+    inline-size: 2.125rem;
+    block-size: 2.125rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-kicker {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .brand-title {
+    font-size: 1.08rem;
+  }
+
+  .header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    flex-wrap: balance;
+    align-items: safe center;
+    gap: 0.6rem;
+  }
+
+  .studio-layout {
+    padding-block: 1.5rem 2.25rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .intro-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .intro-copy {
+    max-inline-size: 68ch;
+    color: var(--text-muted);
+    margin-block-start: 0.35rem;
+  }
+
+  .quick-downloads {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .workspace-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+
+    @media (min-width: 62rem) {
+      grid-template-columns: minmax(0, 1.65fr) minmax(20rem, 25rem);
+    }
+  }
+
+  .site-footer {
+    border-block-start: 1px solid var(--border-ui);
+    background-color: var(--bg-surface);
+    padding-block: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+}
+
+/* ======================= 5. COMPONENTS ======================= */
+@layer components {
+  /* Buttons (min 24x24 CSS px target size, enlarged on coarse pointers) */
+  .btn {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: safe center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-block-size: 2.4rem;
+    min-inline-size: 2.4rem;
+    padding-block: 0.45rem;
+    padding-inline: 0.9rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: var(--bg-subtle);
+    color: var(--text-primary);
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+    @media (pointer: coarse) {
+      min-block-size: 2.75rem;
+      min-inline-size: 2.75rem;
+    }
+
+    & svg {
+      inline-size: 1.1rem;
+      block-size: 1.1rem;
+      flex-shrink: 0;
+    }
+  }
+
+  .btn-sm {
+    min-block-size: 2rem;
+    padding-block: 0.3rem;
+    padding-inline: 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  .btn-icon {
+    padding: 0.4rem;
+  }
+
+  .btn-primary {
+    background-color: var(--brand);
+    color: var(--brand-on);
+    border-color: var(--brand);
+
+    &:hover:not(:disabled) {
+      background-color: color-mix(in oklab, var(--brand), black 12%);
+    }
+  }
+
+  .btn-outline {
+    background-color: var(--bg-surface);
+    border-color: var(--border-ui);
+
+    &:hover:not(:disabled) {
+      background-color: var(--bg-subtle);
+      border-color: var(--brand);
+    }
+  }
+
+  .btn-subtle {
+    background-color: var(--bg-subtle);
+    border-color: var(--border-ui);
+
+    &:hover:not(:disabled) {
+      border-color: var(--brand);
+    }
+  }
+
+  /* 3D Viewport Panel */
+  .viewport-panel {
+    container: viewport-card / inline-size;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-lg);
+    padding: 0.85rem;
+    display: grid;
+    gap: 0.75rem;
+
+    /* Efficient Background Processing per modern-web-guidance */
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 620px;
+  }
+
+  .viewport-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: safe center;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  .camera-presets,
+  .playback-controls {
+    display: flex;
+    flex-wrap: wrap;
+    flex-wrap: balance;
+    gap: 0.4rem;
+  }
+
+  .chip-btn {
+    box-sizing: border-box;
+    min-block-size: 2rem;
+    padding-block: 0.28rem;
+    padding-inline: 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-ui);
+    background-color: var(--bg-surface);
+    font-size: 0.84rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+    &:hover:not(:disabled) {
+      background-color: var(--bg-subtle);
+    }
+
+    &[aria-pressed="true"] {
+      background-color: var(--brand);
+      color: var(--brand-on);
+      border-color: var(--brand);
+    }
+  }
+
+  .canvas-stage {
+    position: relative;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-ui);
+    overflow: clip;
+    aspect-ratio: 16 / 11;
+    min-block-size: 24rem;
+    max-block-size: 72dvh;
+    inline-size: 100%;
+    background: radial-gradient(circle at 50% 35%, oklch(28% 0.04 260), oklch(14% 0.02 260));
+  }
+
+  #knight-canvas {
+    inline-size: 100%;
+    block-size: 100%;
+    /* Reserve touch-action: none strictly for 3D orbit canvas */
+    touch-action: none;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .canvas-hud {
+    position: absolute;
+    inset-inline: 0.75rem;
+    inset-block-end: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: safe center;
+    gap: 0.5rem;
+    pointer-events: none;
+  }
+
+  .hud-hint,
+  .hud-badge {
+    background-color: oklch(16% 0.02 260 / 0.82);
+    color: oklch(95% 0.01 255);
+    border: 1px solid oklch(48% 0.03 260 / 0.65);
+    padding-block: 0.25rem;
+    padding-inline: 0.65rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+
+    @media (forced-colors: active) {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: ButtonBorder;
+    }
+  }
+
+  /* Customizer Controls Sidebar */
+  .controls-panel {
+    container: sidebar / inline-size;
+  }
+
+  .control-stack {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .control-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    display: grid;
+    gap: 0.75rem;
+
+    & > legend {
+      float: inline-start;
+      inline-size: 100%;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-block-end: 0.15rem;
+    }
+  }
+
+  .pose-grid,
+  .palette-grid {
+    clear: both;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  @container sidebar (inline-size < 280px) {
+    .pose-grid,
+    .palette-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* Choice pills & Swatch options styled cleanly with :has(:checked) */
+  .choice-pill,
+  .swatch-option {
+    box-sizing: border-box;
+    display: flex;
+    align-items: safe center;
+    gap: 0.5rem;
+    min-block-size: 2.4rem;
+    padding-block: 0.4rem;
+    padding-inline: 0.65rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-ui);
+    background-color: var(--bg-canvas);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+
+    &:hover {
+      background-color: var(--bg-subtle);
+    }
+
+    &:has(:checked) {
+      border-color: var(--brand);
+      background-color: color-mix(in oklab, var(--brand), var(--bg-surface) 84%);
+      font-weight: 600;
+    }
+
+    &:has(:focus-visible) {
+      outline: 3px solid var(--brand);
+      outline-offset: 2px;
+    }
+  }
+
+  .swatch-dot {
+    inline-size: 1rem;
+    block-size: 1rem;
+    border-radius: 50%;
+    border: 1px solid var(--border-ui);
+    flex-shrink: 0;
+    forced-color-adjust: none;
+  }
+
+  .swatch-royal {
+    background: linear-gradient(135deg, #c8d0db 45%, #1e429f 46%, #d9a441 90%);
+  }
+
+  .swatch-crimson {
+    background: linear-gradient(135deg, #d5d9df 45%, #8b1a24 46%, #c89b3c 90%);
+  }
+
+  .swatch-obsidian {
+    background: linear-gradient(135deg, #2c313a 45%, #4c1d95 46%, #c98a2c 90%);
+  }
+
+  .swatch-gilded {
+    background: linear-gradient(135deg, #e8dcc4 45%, #0f5c4d 46%, #f0b429 90%);
+  }
+
+  .toggle-list {
+    clear: both;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .check-row {
+    display: flex;
+    align-items: safe center;
+    gap: 0.6rem;
+    min-block-size: 2rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    & input[type="checkbox"] {
+      inline-size: 1.1rem;
+      block-size: 1.1rem;
+      margin: 0;
+      cursor: pointer;
+    }
+  }
+
+  .slider-field {
+    clear: both;
+    display: grid;
+    gap: 0.3rem;
+
+    & input[type="range"] {
+      inline-size: 100%;
+      cursor: pointer;
+    }
+  }
+
+  .slider-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+
+    & output {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--brand);
+    }
+  }
+
+  /* Progressive enhancement fallback for browsers lacking accent-color */
+  @supports not (accent-color: var(--brand)) {
+    form input[type="checkbox"].visually-hidden {
+      position: absolute !important;
+      clip-path: inset(50%) !important;
+      overflow: hidden !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: -1px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      white-space: nowrap !important;
+    }
+
+    .check-row {
+      position: relative;
+      padding-inline-start: 1.85rem;
+    }
+
+    .check-row input[type="checkbox"] + span::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: 50%;
+      transform: translateY(-50%);
+      inline-size: 1.15rem;
+      block-size: 1.15rem;
+      border: 2px solid var(--border-ui);
+      background: var(--bg-surface);
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+    }
+
+    .check-row input[type="checkbox"]:focus-visible + span::before {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    .check-row input[type="checkbox"]:checked + span::before {
+      background-color: var(--brand);
+      border-color: var(--brand);
+    }
+
+    .check-row input[type="checkbox"]:checked + span::after {
+      content: "✓";
+      position: absolute;
+      inset-inline-start: 0.24rem;
+      inset-block-start: 50%;
+      transform: translateY(-50%);
+      color: var(--brand-on);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      inline-size: 100%;
+      block-size: 8px;
+      background: linear-gradient(to right, var(--brand) var(--progress, 50%), var(--border-ui) var(--progress, 50%));
+      border-radius: 4px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      block-size: 16px;
+      inline-size: 16px;
+      border-radius: 50%;
+      background: var(--brand);
+      margin-block-start: -4px;
+    }
+
+    input[type="range"]::-moz-range-track {
+      inline-size: 100%;
+      block-size: 8px;
+      background: var(--border-ui);
+      border-radius: 4px;
+    }
+
+    input[type="range"]::-moz-range-progress {
+      background-color: var(--brand);
+      block-size: 8px;
+      border-radius: 4px;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      block-size: 16px;
+      inline-size: 16px;
+      border-radius: 50%;
+      background: var(--brand);
+      border: 0;
+    }
+  }
+
+  /* ======================= TOP LAYER DIALOG & POPOVER ======================= */
+  dialog,
+  [popover] {
+    box-sizing: border-box;
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem;
+    max-inline-size: min(36rem, calc(100dvw - 2rem));
+    max-block-size: calc(100dvh - 3rem);
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    overscroll-behavior: contain;
+
+    /* Base closed/exit state & discrete top-layer transitions */
+    opacity: 0;
+    transition-property: opacity, transform, display, overlay;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out;
+    transition-behavior: allow-discrete;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transform: scale(0.95);
+    }
+  }
+
+  dialog::backdrop,
+  [popover]::backdrop {
+    background-color: rgb(0 0 0 / 0);
+    transition-property: background-color, display, overlay;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out;
+    transition-behavior: allow-discrete;
+  }
+
+  /* Open state + @starting-style + [data-closing] fallback + .\:popover-open polyfill selector */
+  :is(dialog[open], [popover]:where(:popover-open, .\:popover-open)):where(:not([data-closing])) {
+    opacity: 1;
+
+    @starting-style {
+      opacity: 0;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      transform: scale(1);
+
+      @starting-style {
+        transform: scale(0.95);
+      }
+    }
+
+    &::backdrop {
+      background-color: rgb(0 0 0 / 0.55);
+
+      @starting-style {
+        background-color: transparent;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    dialog,
+    [popover] {
+      transition-duration: 0.1s;
+    }
+  }
+
+  .inspector-popover {
+    margin: auto;
+    inline-size: min(34rem, calc(100dvw - 2rem));
+  }
+
+  .popover-head,
+  .dialog-header {
+    display: flex;
+    align-items: safe center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-block-end: 0.75rem;
+  }
+
+  .popover-lead,
+  .dialog-desc {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-block-end: 1rem;
+  }
+
+  .spec-table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    margin-block-end: 1rem;
+    font-size: 0.9rem;
+
+    & caption {
+      text-align: start;
+      font-weight: 700;
+      margin-block-end: 0.4rem;
+    }
+
+    & th,
+    & td {
+      text-align: start;
+      padding-block: 0.45rem;
+      padding-inline: 0.6rem;
+      border-block-end: 1px solid var(--border-ui);
+    }
+  }
+
+  .rig-tree {
+    padding-inline-start: 1.25rem;
+    margin-block-start: 0.4rem;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.88rem;
+  }
+
+  .export-options {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: 1rem;
+  }
+
+  .export-card {
+    border: 1px solid var(--border-ui);
+    background-color: var(--bg-canvas);
+    border-radius: var(--radius-md);
+    padding: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: safe center;
+    justify-content: space-between;
+    gap: 0.75rem;
+
+    & div {
+      flex: 1 1 15rem;
+    }
+
+    & h3 {
+      font-size: 0.98rem;
+      margin-block-end: 0.2rem;
+    }
+
+    & p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  }
+
+  .dialog-footer {
+    display: flex;
+    align-items: safe center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .export-feedback {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--brand);
+  }
+}
+
+/* ======================= 6. UTILITIES ======================= */
+@layer utilities {
+  /* Canonical accessible visually-hidden utility with :focus-within/:active opt-out for skip link */
+  .visually-hidden:where(:not(:focus-within, :active)) {
+    position: absolute !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  .skip-link:is(:focus-within, :active) {
+    position: fixed;
+    inset-block-start: 0.75rem;
+    inset-inline-start: 0.75rem;
+    z-index: 100;
+    background-color: var(--brand);
+    color: var(--brand-on);
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    text-decoration: none;
+  }
+}

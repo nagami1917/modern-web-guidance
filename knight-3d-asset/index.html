@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Valorian Knight — 3D Asset Studio | Modern Web Guidance</title>
+  <meta name="description" content="Interactive 3D Classic Medieval Fantasy Knight character asset with skeletal animations, PBR armor customization, and GLB/OBJ export, built using Modern Web Guidance.">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link visually-hidden" href="#main-title">Skip to main content</a>
+
+  <!-- ======================= HEADER ======================= -->
+  <header class="site-header">
+    <div class="shell header-bar">
+      <div class="brand">
+        <img class="brand-logo" src="assets/logo.png" alt="" width="34" height="34">
+        <div class="brand-text">
+          <span class="brand-kicker">Modern Web Guidance · 3D Asset Studio</span>
+          <strong class="brand-title">Valorian Knight</strong>
+        </div>
+      </div>
+
+      <nav class="header-actions" aria-label="Asset actions">
+        <button
+          type="button"
+          class="btn btn-outline"
+          commandfor="RigHierarchyPopover"
+          command="toggle-popover"
+          id="rig-popover-trigger"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5H5v4h4V5Zm10 0h-4v4h4V5ZM9 15H5v4h4v-4Zm10 0h-4v4h4v-4ZM7 9v6m10-6v6M9 7h6M9 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Inspect Rig &amp; Specs
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          commandfor="ExportAssetDialog"
+          command="show-modal"
+          id="export-dialog-trigger"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Export 3D Asset
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ======================= RIG & TOPOLOGY POPOVER ======================= -->
+  <div id="RigHierarchyPopover" popover class="inspector-popover" role="region" aria-labelledby="popover-title">
+    <div class="popover-head">
+      <h2 id="popover-title">Asset Topology &amp; Skeletal Rig</h2>
+      <button
+        type="button"
+        class="btn btn-icon"
+        commandfor="RigHierarchyPopover"
+        command="hide-popover"
+        data-return-focus="rig-popover-trigger"
+        aria-label="Close rig inspector"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <p class="popover-lead">
+      Clean hierarchical PBR mesh groups ready for Godot, Unity, Unreal Engine, Blender, or Three.js.
+    </p>
+
+    <table class="spec-table">
+      <caption>Geometry and material summary</caption>
+      <thead>
+        <tr>
+          <th scope="col">Metric</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Sub-meshes</th>
+          <td id="stat-meshes">92</td>
+        </tr>
+        <tr>
+          <th scope="row">Triangles</th>
+          <td id="stat-triangles">14,992</td>
+        </tr>
+        <tr>
+          <th scope="row">Vertices</th>
+          <td id="stat-vertices">18,093</td>
+        </tr>
+        <tr>
+          <th scope="row">PBR Materials</th>
+          <td>10 named metallic-roughness slots</td>
+        </tr>
+        <tr>
+          <th scope="row">Scale</th>
+          <td>1.92 m heroic humanoid (1 unit = 1 meter)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Articulated Bone / Pivot Tree</h3>
+    <ul class="rig-tree">
+      <li><code>ValorianKnightAsset</code> → <code>KnightRig</code> → <code>Hips</code></li>
+      <li><code>Spine</code> (Gothic Cuirass, Gorget, <code>CapeRig</code>)</li>
+      <li><code>Neck</code> → <code>HelmetHead</code> → <code>VisorPivot</code> &amp; <code>HelmetPlumeGroup</code></li>
+      <li><code>RightShoulder</code> → <code>RightElbow</code> → <code>RightWrist</code> → <code>ValorianLongsword</code></li>
+      <li><code>LeftShoulder</code> → <code>LeftElbow</code> → <code>HeraldicKiteShield</code> &amp; <code>LeftWrist</code></li>
+      <li><code>RightHip</code> / <code>LeftHip</code> → <code>Poleyn</code> Knees → <code>Sabaton</code> Ankles</li>
+    </ul>
+  </div>
+
+  <!-- ======================= MAIN STUDIO WORKSPACE ======================= -->
+  <main class="shell studio-layout">
+    <div class="intro-strip">
+      <div>
+        <h1 id="main-title" tabindex="-1">Classic Medieval Fantasy Knight — 3D Asset</h1>
+        <p class="intro-copy">
+          Articulated plate-armored knight complete with houndskull visor, gothic cuirass, heraldic kite shield, cruciform longsword, and royal mantle. Customize materials or export directly to <code>.glb</code> and <code>.obj</code>.
+        </p>
+      </div>
+      <div class="quick-downloads">
+        <a class="btn btn-subtle" href="assets/models/valorian-knight.glb" download="valorian-knight.glb">
+          Download Prebuilt <code>.glb</code> (739 KB)
+        </a>
+        <a class="btn btn-subtle" href="assets/models/valorian-knight.obj" download="valorian-knight.obj">
+          Download Prebuilt <code>.obj</code> (3.4 MB)
+        </a>
+      </div>
+    </div>
+
+    <div class="workspace-grid">
+      <!-- 3D VIEWPORT STAGE -->
+      <section class="viewport-panel" aria-labelledby="viewport-heading">
+        <div class="viewport-toolbar">
+          <h2 id="viewport-heading" class="visually-hidden">Interactive 3D Viewport</h2>
+
+          <div class="camera-presets" role="group" aria-label="Camera views">
+            <button type="button" class="chip-btn is-active" data-cam="hero" aria-pressed="true">3/4 Hero</button>
+            <button type="button" class="chip-btn" data-cam="front" aria-pressed="false">Front</button>
+            <button type="button" class="chip-btn" data-cam="helm" aria-pressed="false">Helm Close-Up</button>
+            <button type="button" class="chip-btn" data-cam="weapons" aria-pressed="false">Shield &amp; Blade</button>
+            <button type="button" class="chip-btn" data-cam="back" aria-pressed="false">Back / Cloak</button>
+          </div>
+
+          <div class="playback-controls">
+            <!-- WCAG 2.2.2 Pause, Stop, Hide: visible keyboard-accessible pause control.
+                 Note per Modern Web Guidance motion guide: label toggles Pause/Play without aria-pressed. -->
+            <button type="button" class="btn btn-sm btn-outline" id="toggle-motion-btn">
+              Pause Motion
+            </button>
+            <button type="button" class="btn btn-sm btn-outline" id="screenshot-btn">
+              Save PNG Render
+            </button>
+          </div>
+        </div>
+
+        <figure class="canvas-stage" id="canvas-container">
+          <canvas
+            id="knight-canvas"
+            role="img"
+            aria-label="Interactive 3D model of the Valorian Knight in medieval gothic plate armor holding a heraldic star kite shield and cruciform longsword."
+          ></canvas>
+          <figcaption class="canvas-hud">
+            <span class="hud-hint">Drag to orbit · Scroll to zoom · Right-drag to pan</span>
+            <span class="hud-badge" id="active-state-badge">Stance: Heroic Idle · Royal Valorian</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- CUSTOMIZATION SIDEBAR -->
+      <aside class="controls-panel" aria-label="3D Asset Customizer">
+        <form id="customizer-form" class="control-stack">
+          <!-- 1. Stance & Skeletal Animation -->
+          <fieldset class="control-card">
+            <legend>Skeletal Stance &amp; Animation</legend>
+            <div class="pose-grid">
+              <label class="choice-pill">
+                <input type="radio" class="visually-hidden-fallback" name="pose" value="idle" checked>
+                <span>Heroic Idle</span>
+              </label>
+              <label class="choice-pill">
+                <input type="radio" class="visually-hidden-fallback" name="pose" value="guard">
+                <span>Shield Guard</span>
+              </label>
+              <label class="choice-pill">
+                <input type="radio" class="visually-hidden-fallback" name="pose" value="strike">
+                <span>Sword Cleave</span>
+              </label>
+              <label class="choice-pill">
+                <input type="radio" class="visually-hidden-fallback" name="pose" value="salute">
+                <span>Royal Salute</span>
+              </label>
+              <label class="choice-pill">
+                <input type="radio" class="visually-hidden-fallback" name="pose" value="march">
+                <span>Vanguard March</span>
+              </label>
+              <label class="choice-pill">
+                <input type="radio" class="visually-hidden-fallback" name="pose" value="tpose">
+                <span>Rig T-Pose</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 2. Armor Heraldry Palette -->
+          <fieldset class="control-card">
+            <legend>Heraldry &amp; Armor Finish</legend>
+            <div class="palette-grid">
+              <label class="swatch-option">
+                <input type="radio" class="visually-hidden-fallback" name="palette" value="royal" checked>
+                <span class="swatch-dot swatch-royal" aria-hidden="true"></span>
+                <span>Royal Valorian</span>
+              </label>
+              <label class="swatch-option">
+                <input type="radio" class="visually-hidden-fallback" name="palette" value="crimson">
+                <span class="swatch-dot swatch-crimson" aria-hidden="true"></span>
+                <span>Crimson Templar</span>
+              </label>
+              <label class="swatch-option">
+                <input type="radio" class="visually-hidden-fallback" name="palette" value="obsidian">
+                <span class="swatch-dot swatch-obsidian" aria-hidden="true"></span>
+                <span>Obsidian Dragoon</span>
+              </label>
+              <label class="swatch-option">
+                <input type="radio" class="visually-hidden-fallback" name="palette" value="gilded">
+                <span class="swatch-dot swatch-gilded" aria-hidden="true"></span>
+                <span>Sunforge Paladin</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 3. Equipment & Articulation Toggles -->
+          <fieldset class="control-card">
+            <legend>Articulation &amp; Gear Loadout</legend>
+            <div class="toggle-list">
+              <label class="check-row" for="toggle-visor">
+                <input type="checkbox" id="toggle-visor" class="visually-hidden">
+                <span>Raise Houndskull Visor</span>
+              </label>
+              <label class="check-row" for="toggle-cape">
+                <input type="checkbox" id="toggle-cape" class="visually-hidden" checked>
+                <span>Equip Royal Mantle Cloak</span>
+              </label>
+              <label class="check-row" for="toggle-shield">
+                <input type="checkbox" id="toggle-shield" class="visually-hidden" checked>
+                <span>Equip Heraldic Kite Shield</span>
+              </label>
+              <label class="check-row" for="toggle-sword">
+                <input type="checkbox" id="toggle-sword" class="visually-hidden" checked>
+                <span>Equip Cruciform Longsword</span>
+              </label>
+              <label class="check-row" for="toggle-plume">
+                <input type="checkbox" id="toggle-plume" class="visually-hidden" checked>
+                <span>Equip Horsehair Crest Plume</span>
+              </label>
+              <label class="check-row" for="toggle-pedestal">
+                <input type="checkbox" id="toggle-pedestal" class="visually-hidden" checked>
+                <span>Show Runic Stone Pedestal</span>
+              </label>
+              <label class="check-row" for="toggle-wireframe">
+                <input type="checkbox" id="toggle-wireframe" class="visually-hidden">
+                <span>Wireframe Mesh Overlay</span>
+              </label>
+              <label class="check-row" for="toggle-turntable">
+                <input type="checkbox" id="toggle-turntable" class="visually-hidden">
+                <span>Turntable Auto-Orbit</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 4. Lighting & PBR Roughness Sliders -->
+          <fieldset class="control-card">
+            <legend>Studio Lighting &amp; Metal Polish</legend>
+
+            <div class="slider-field">
+              <div class="slider-header">
+                <label for="polish-slider">Armor Polish (Smoothness)</label>
+                <output for="polish-slider" id="polish-output">78%</output>
+              </div>
+              <input type="range" id="polish-slider" min="10" max="96" value="78">
+            </div>
+
+            <div class="slider-field">
+              <div class="slider-header">
+                <label for="light-angle-slider">Key Light Azimuth</label>
+                <output for="light-angle-slider" id="light-angle-output">42°</output>
+              </div>
+              <input type="range" id="light-angle-slider" min="0" max="360" value="42">
+            </div>
+          </fieldset>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p>
+        Built in <code>nagami1917/modern-web-guidance</code> · Zero runtime framework overhead · Exportable glTF 2.0 (<code>.glb</code>) &amp; Wavefront (<code>.obj</code>) 3D Knight Asset.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ======================= EXPORT MODAL DIALOG ======================= -->
+  <dialog id="ExportAssetDialog" closedby="any" aria-labelledby="export-dialog-title">
+    <div class="dialog-header">
+      <h2 id="export-dialog-title">Export Customized 3D Knight Asset</h2>
+      <button
+        type="button"
+        class="btn btn-icon"
+        commandfor="ExportAssetDialog"
+        command="close"
+        aria-label="Close export dialog"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <p class="dialog-desc">
+      Export your current armor palette, gear visibility, visor state, and selected pose directly from the live 3D scene, or grab the prebuilt neutral reference asset.
+    </p>
+
+    <div class="export-options">
+      <div class="export-card">
+        <div>
+          <h3>glTF 2.0 Binary (<code>.glb</code>)</h3>
+          <p>Recommended for Unity, Unreal, Godot, Blender, and Three.js. Preserves PBR metallic-roughness materials, colors, and node hierarchy.</p>
+        </div>
+        <button type="button" class="btn btn-primary" id="export-live-glb-btn">
+          Export Live <code>.glb</code>
+        </button>
+      </div>
+
+      <div class="export-card">
+        <div>
+          <h3>Wavefront Mesh (<code>.obj</code>)</h3>
+          <p>Universal polygonal geometry format for sculpting, 3D printing slicing, or legacy DCC pipelines.</p>
+        </div>
+        <button type="button" class="btn btn-outline" id="export-live-obj-btn">
+          Export Live <code>.obj</code>
+        </button>
+      </div>
+
+      <div class="export-card">
+        <div>
+          <h3>High-Res Turntable Still (<code>.png</code>)</h3>
+          <p>Captures the current viewport camera framing and lighting at native device pixel resolution.</p>
+        </div>
+        <button type="button" class="btn btn-outline" id="export-live-png-btn">
+          Capture <code>.png</code>
+        </button>
+      </div>
+    </div>
+
+    <div class="dialog-footer">
+      <span class="export-feedback" id="export-status" role="status" aria-live="polite"></span>
+      <button type="button" class="btn btn-subtle" commandfor="ExportAssetDialog" command="close">
+        Done
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Centralized polite live region for non-modal announcements -->
+  <div id="studio-announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
