@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meridian Health — Modern, compassionate care</title>
+  <meta name="description" content="Meridian Health Clinic: primary care, pediatrics, cardiology, diagnostics and telehealth. Book an appointment in under a minute.">
+  <meta name="theme-color" content="#0e7c66" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b3d34" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <script type="speculationrules">
+  {
+    "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ======================= HEADER ======================= -->
+  <header class="site-header" id="top">
+    <div class="shell header-shell">
+      <a class="brand" href="#top" aria-label="Meridian Health — home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path class="pulse" d="M2 16h6l3-8 4 16 4-12 3 4h8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-name">Meridian&nbsp;<b>Health</b></span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#doctors">Doctors</a></li>
+          <li><a href="#stories">Patients</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-ghost phone" href="tel:+15550132273">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1Z" fill="currentColor"/></svg>
+          (555) 013-2273
+        </a>
+        <button class="btn btn-primary" command="show-modal" commandfor="booking-dialog">Book visit</button>
+        <button class="btn btn-icon menu-btn" popovertarget="mobile-nav" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile navigation drawer (Popover API — top layer, light dismiss, no JS needed) -->
+  <nav id="mobile-nav" popover class="mobile-nav" aria-label="Mobile">
+    <div class="mobile-nav-head">
+      <span class="brand-name">Meridian&nbsp;<b>Health</b></span>
+      <button class="btn btn-icon" popovertarget="mobile-nav" popovertargetaction="hide" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#doctors">Doctors</a></li>
+      <li><a href="#stories">Patients</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="btn btn-primary block" command="show-modal" commandfor="booking-dialog">Book an appointment</button>
+    <a class="mobile-tel" href="tel:+15550132273">(555) 013-2273 · 24/7 nurse line</a>
+  </nav>
+
+  <main id="main">
+    <!-- ======================= HERO ======================= -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="shell hero-shell">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Accepting new patients · Same-week openings</p>
+          <h1 id="hero-title" class="hero-title">
+            Health care that
+            <em class="accent">revolves</em> around&nbsp;you
+          </h1>
+          <p class="hero-sub">
+            Meridian Health brings primary care, specialists, labs and 24/7 telehealth
+            under one roof — with transparent pricing and clinicians who actually listen.
+          </p>
+          <div class="hero-cta">
+            <button class="btn btn-primary btn-lg" command="show-modal" commandfor="booking-dialog">
+              Book an appointment
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <a class="btn btn-outline btn-lg" href="#services">Explore services</a>
+          </div>
+          <dl class="hero-stats">
+            <div><dt>Patients cared for</dt><dd>48,000+</dd></div>
+            <div><dt>Average wait time</dt><dd>&lt; 9 min</dd></div>
+            <div><dt>Patient satisfaction</dt><dd>4.9 / 5</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="orb orb-a"></div>
+          <div class="orb orb-b"></div>
+          <div class="hero-card glass">
+            <div class="hero-card-head">
+              <span class="avatar">DR</span>
+              <div><strong>Dr. Dana Reyes</strong><span>Primary Care</span></div>
+              <span class="pill pill-live">In clinic today</span>
+            </div>
+            <div class="slots">
+              <button class="slot">09:00</button>
+              <button class="slot is-taken" disabled>09:30</button>
+              <button class="slot">10:15</button>
+              <button class="slot">11:45</button>
+              <button class="slot is-taken" disabled>13:00</button>
+              <button class="slot">14:30</button>
+            </div>
+            <p class="hero-card-note">Same-day slots refresh every morning at 7&nbsp;am.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= SERVICES ======================= -->
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="eyebrow">What we do</p>
+          <h2 id="services-title">Care for every stage of life</h2>
+          <p>One team, one record, zero runaround. From annual check-ups to advanced cardiac testing.</p>
+        </header>
+
+        <ul class="card-grid">
+          <li class="card reveal">
+            <span class="icon-chip" data-icon>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.6-9.3-9A5.6 5.6 0 0 1 12 6.3 5.6 5.6 0 0 1 21.3 12C19 16.4 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 12h3l1.5-3 2 6 1.5-3h3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Primary care</h3>
+            <p>Annual physicals, chronic-condition management, prescriptions and referrals — with a clinician who knows your history.</p>
+            <a class="text-link" href="#booking-anchor" data-open-booking>Book primary care →</a>
+          </li>
+
+          <li class="card reveal">
+            <span class="icon-chip" data-icon>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Pediatrics</h3>
+            <p>Well-child visits, vaccinations and developmental screenings in a kid-friendly wing — plus a parents' advice line.</p>
+            <a class="text-link" href="#booking-anchor" data-open-booking>Book pediatrics →</a>
+          </li>
+
+          <li class="card reveal">
+            <span class="icon-chip" data-icon>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-6.5-4.2-8.6-8.3A5 5 0 0 1 12 6.6a5 5 0 0 1 8.6 5.1C18.5 15.8 12 20 12 20Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 12h4l1.5-2.5 2 5 1.5-2.5h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Cardiology</h3>
+            <p>EKG, echocardiograms, Holter monitoring and hypertension clinics with results explained in plain language.</p>
+            <a class="text-link" href="#booking-anchor" data-open-booking>Book cardiology →</a>
+          </li>
+
+          <li class="card reveal">
+            <span class="icon-chip" data-icon>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 12h2l1-2.4 1.6 4.8L13 12h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Lab &amp; diagnostics</h3>
+            <p>On-site bloodwork, imaging and same-day rapid tests. Most results land in your portal within 24 hours.</p>
+            <a class="text-link" href="#booking-anchor" data-open-booking>Book lab work →</a>
+          </li>
+
+          <li class="card reveal">
+            <span class="icon-chip" data-icon>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14.5 10.5 21 8v8l-6.5-2.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Telehealth 24/7</h3>
+            <p>Video visits from anywhere, around the clock. Prescriptions sent straight to your preferred pharmacy.</p>
+            <a class="text-link" href="#booking-anchor" data-open-booking>Start a video visit →</a>
+          </li>
+
+          <li class="card reveal">
+            <span class="icon-chip" data-icon>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a7 7 0 0 1 7 7c0 4-3.5 6.5-5 11h-4C8.5 16.5 5 14 5 10a7 7 0 0 1 7-7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 10.5c.8 1 4.2 1 5 0M10 14h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Mental health</h3>
+            <p>Therapy and psychiatry, in person or by video — because mental health is health, full stop.</p>
+            <a class="text-link" href="#booking-anchor" data-open-booking>Book a session →</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= WHY US ======================= -->
+    <section class="section why" aria-labelledby="why-title">
+      <div class="shell why-shell">
+        <div class="why-copy reveal">
+          <p class="eyebrow">Why Meridian</p>
+          <h2 id="why-title">Built around patients, not paperwork</h2>
+          <ul class="checklist">
+            <li><b>Transparent pricing.</b> Every visit shows its cost before you book. No surprise bills.</li>
+            <li><b>One shared record.</b> Your GP, cardiologist and therapist see the same chart — safely.</li>
+            <li><b>Messages, not phone tag.</b> Message your care team from the portal; answers within a business day.</li>
+            <li><b>Evenings &amp; weekends.</b> Clinics open 7 am–8 pm weekdays, 8 am–4 pm Saturdays.</li>
+          </ul>
+          <button class="btn btn-primary" command="show-modal" commandfor="booking-dialog">Meet your new doctor</button>
+        </div>
+
+        <div class="why-figures reveal">
+          <figure>
+            <figcaption>Visits booked online</figcaption>
+            <div class="bar" role="img" aria-label="87 percent of visits booked online"><i style="--w: 87%"></i></div>
+            <strong>87%</strong>
+          </figure>
+          <figure>
+            <figcaption>Lab results within 24 h</figcaption>
+            <div class="bar" role="img" aria-label="94 percent of lab results within 24 hours"><i style="--w: 94%"></i></div>
+            <strong>94%</strong>
+          </figure>
+          <figure>
+            <figcaption>Would recommend us</figcaption>
+            <div class="bar" role="img" aria-label="96 percent would recommend Meridian"><i style="--w: 96%"></i></div>
+            <strong>96%</strong>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= DOCTORS ======================= -->
+    <section class="section" id="doctors" aria-labelledby="doctors-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="eyebrow">Our clinicians</p>
+          <h2 id="doctors-title">The people behind the scrubs</h2>
+          <p>Board-certified, endlessly curious, and committed to explaining things without the jargon.</p>
+        </header>
+
+        <ul class="card-grid doctors-grid">
+          <li class="card doctor reveal">
+            <div class="doctor-top">
+              <span class="avatar lg" data-initials="AM">AM</span>
+              <div>
+                <h3>Dr. Amara Mensah</h3>
+                <p class="muted">Family Medicine · 12 yrs</p>
+              </div>
+            </div>
+            <p class="doctor-quote">“Prevention beats prescription. Let's find problems while they're still small.”</p>
+            <div class="tags"><span>Diabetes care</span><span>Preventive screening</span><span>EN · FR</span></div>
+          </li>
+
+          <li class="card doctor reveal">
+            <div class="doctor-top">
+              <span class="avatar lg" data-initials="DR">DR</span>
+              <div>
+                <h3>Dr. Dana Reyes</h3>
+                <p class="muted">Internal Medicine · 9 yrs</p>
+              </div>
+            </div>
+            <p class="doctor-quote">“You'll leave every visit knowing exactly what happens next — and why.”</p>
+            <div class="tags"><span>Hypertension</span><span>Women's health</span><span>EN · ES</span></div>
+          </li>
+
+          <li class="card doctor reveal">
+            <div class="doctor-top">
+              <span class="avatar lg" data-initials="JO">JO</span>
+              <div>
+                <h3>Dr. Jonas Okafor</h3>
+                <p class="muted">Cardiology · 15 yrs</p>
+              </div>
+            </div>
+            <p class="doctor-quote">“Strong hearts are built on boring daily habits. I help you make them stick.”</p>
+            <div class="tags"><span>Echocardiography</span><span>Cardiac rehab</span><span>EN</span></div>
+          </li>
+
+          <li class="card doctor reveal">
+            <div class="doctor-top">
+              <span class="avatar lg" data-initials="LS">LS</span>
+              <div>
+                <h3>Dr. Lea Santos</h3>
+                <p class="muted">Pediatrics · 8 yrs</p>
+              </div>
+            </div>
+            <p class="doctor-quote">“Kids aren't small adults. They deserve care designed for exactly who they are.”</p>
+            <div class="tags"><span>Newborn care</span><span>Vaccination</span><span>EN · FIL</span></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= TESTIMONIALS ======================= -->
+    <section class="section stories" id="stories" aria-labelledby="stories-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="eyebrow">Patient stories</p>
+          <h2 id="stories-title">Kind words from real people</h2>
+        </header>
+        <ul class="quote-grid">
+          <li class="quote reveal">
+            <blockquote>“Booked at 9 pm, seen at 8 am the next morning. My daughter's fever was gone by lunch — and so was my anxiety.”</blockquote>
+            <figcaption><span class="avatar sm">MK</span> Maria K. <span class="muted">· Pediatrics</span></figcaption>
+          </li>
+          <li class="quote reveal">
+            <blockquote>“For the first time in years my cholesterol plan is one page long and I actually understand it.”</blockquote>
+            <figcaption><span class="avatar sm">TB</span> Theo B. <span class="muted">· Cardiology</span></figcaption>
+          </li>
+          <li class="quote reveal">
+            <blockquote>“The telehealth line at 2 am probably saved me an ER bill. The nurse stayed on until I stopped shaking.”</blockquote>
+            <figcaption><span class="avatar sm">AP</span> Ana P. <span class="muted">· Telehealth</span></figcaption>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= FAQ ======================= -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="shell narrow">
+        <header class="section-head">
+          <p class="eyebrow">Good to know</p>
+          <h2 id="faq-title">Frequently asked questions</h2>
+        </header>
+
+        <!-- Exclusive accordion: name= groups details elements natively -->
+        <section class="faq">
+          <details name="faq">
+            <summary>Do you accept my insurance?</summary>
+            <p>We work with all major insurers plus self-pay plans. The booking flow shows your exact cost before you confirm — no estimates, no surprises.</p>
+          </details>
+          <details name="faq">
+            <summary>How fast can I be seen?</summary>
+            <p>Same-day slots open every morning at 7 am. Urgent issues are triaged by our 24/7 nurse line, which can escalate you to a clinician within hours.</p>
+          </details>
+          <details name="faq">
+            <summary>Can I choose my own doctor?</summary>
+            <p>Yes. Browse clinician profiles, pick the one who fits, and they become your consistent point of care across visits and messages.</p>
+          </details>
+          <details name="faq">
+            <summary>Is my data safe?</summary>
+            <p>Your records are encrypted in transit and at rest, shared only with clinicians on your care team, and never sold. You can export or delete your data at any time.</p>
+          </details>
+          <details name="faq">
+            <summary>What if I need a specialist?</summary>
+            <p>Your primary care team refers you inside Meridian first — cardiology, mental health, and diagnostics are in-house — and coordinates externally when sub-specialty care is needed.</p>
+          </details>
+        </section>
+      </div>
+    </section>
+
+    <!-- ======================= CONTACT ======================= -->
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="shell contact-shell">
+        <div class="contact-card reveal">
+          <div>
+            <p class="eyebrow">Visit us</p>
+            <h2 id="contact-title">Come say hello</h2>
+            <address class="contact-lines">
+              <span><b>Clinic</b> 214 Harbor Ave, Suite 300, Riverside</span>
+              <span><b>Hours</b> Mon–Fri 7 am–8 pm · Sat 8 am–4 pm</span>
+              <span><b>Nurse line</b> <a href="tel:+15550132273">(555) 013-2273</a> · 24/7</span>
+              <span><b>Email</b> <a href="mailto:care@meridianhealth.example">care@meridianhealth.example</a></span>
+            </address>
+          </div>
+          <div class="contact-map" role="img" aria-label="Stylized map showing the clinic location on Harbor Avenue">
+            <svg viewBox="0 0 320 200" aria-hidden="true">
+              <path class="map-road" d="M-10 60 H330 M-10 140 H330 M60 -10 V210 M200 -10 V210 M-10 60 L200 140" />
+              <circle class="map-pin" cx="200" cy="140" r="9"/>
+              <circle class="map-pin-core" cx="200" cy="140" r="4"/>
+              <text class="map-label" x="200" y="122" text-anchor="middle">Meridian Health</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="site-footer">
+    <div class="shell footer-shell">
+      <div class="footer-brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path class="pulse" d="M2 16h6l3-8 4 16 4-12 3 4h8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Meridian&nbsp;<b>Health</b></span>
+        <p>Modern, compassionate care. This is a demonstration website; content is illustrative only and not medical advice.</p>
+      </div>
+      <nav aria-label="Footer">
+        <h3>Care</h3>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#doctors">Doctors</a></li>
+          <li><a href="#contact">Locations</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Support">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="tel:+15550132273">Nurse line</a></li>
+          <li><a href="mailto:care@meridianhealth.example">Contact</a></li>
+        </ul>
+      </nav>
+      <p class="footer-fine">© 2026 Meridian Health (demo). If this is an emergency, call your local emergency number.</p>
+    </div>
+  </footer>
+
+  <!-- ======================= BOOKING DIALOG ======================= -->
+  <span id="booking-anchor"></span>
+  <dialog id="booking-dialog" class="booking" closedby="any" aria-labelledby="booking-title">
+    <form method="dialog" class="booking-form" id="booking-form">
+      <header class="booking-head">
+        <h2 id="booking-title">Book an appointment</h2>
+        <button class="btn btn-icon" value="cancel" aria-label="Close booking dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </header>
+
+      <div class="field">
+        <label for="f-name">Full name</label>
+        <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Jamie Cruz">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label for="f-tel">Phone</label>
+          <input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" placeholder="+1 555 000 0000">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-service">Service</label>
+          <select id="f-service" name="service" required>
+            <option value="" selected disabled>Choose…</option>
+            <option>Primary care</option>
+            <option>Pediatrics</option>
+            <option>Cardiology</option>
+            <option>Lab &amp; diagnostics</option>
+            <option>Telehealth</option>
+            <option>Mental health</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-date">Preferred date</label>
+          <input id="f-date" name="date" type="date" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-notes">Anything we should know? <span class="muted">(optional)</span></label>
+        <textarea id="f-notes" name="notes" rows="3" placeholder="Symptoms, preferred clinician, accessibility needs…"></textarea>
+      </div>
+
+      <p class="booking-note">You'll get a confirmation with cost and clinician details. Demo form — nothing is sent.</p>
+      <div class="booking-actions">
+        <button class="btn btn-ghost" value="cancel" type="submit">Cancel</button>
+        <button class="btn btn-primary" id="confirm-btn" type="button">Request appointment</button>
+      </div>
+    </form>
+
+    <div class="booking-done" id="booking-done" hidden>
+      <div class="done-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2>Request received!</h2>
+      <p id="done-copy" class="muted">Our scheduling team will confirm your slot shortly.</p>
+      <button class="btn btn-primary" id="done-close" type="button">Done</button>
+    </div>
+  </dialog>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
